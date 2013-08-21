@@ -45,4 +45,4 @@
 
         return this.on({'resize.resizeSettle' : resizeHandler});
     };
-})(jQ);
+})(jQuery);
