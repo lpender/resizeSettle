@@ -20,27 +20,26 @@
  * @author Lee Pender <lpender(at)gmail(dot)com>
  */
 (function($) {
-    $.fn.resizeSettle = function(settleHandler) {
+    $.fn.resizeSettle = function(settleHandler, options) {
         "use strict";
         // default configuration values
-        var oCfg = {
+        var config = {
             timeout: 500
         };
 
-        // instantiate variables
-        var bJustSized, ob;
+        if (typeof options === 'object') {
+            $.extend(config, options);
+        }
 
         // handle resize of object
         var resizeHandler = function (ev) {
-            "use strict"
-            bJustSized = true;
-            ob = this;
+            if (this.timeout) {
+                this.timeout = clearTimeout(this.timeout);
+            }
 
-            if (ob.timeOut) {ob.timeOut = clearTimeout(ob.timeOut)}
-
-            ob.timeOut = setTimeout(function (ev) {
-                settleHandler(ev);
-            }, oCfg.timeout);
+            this.timeOut = setTimeout(function() {
+                settleHandler.call(this, ev);
+            }, config.timeout);
         };
 
         return this.on({'resize.resizeSettle' : resizeHandler});
