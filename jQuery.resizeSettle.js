@@ -20,21 +20,21 @@
  * @author Lee Pender <lpender(at)gmail(dot)com>
  */
 (function($) {
-    $.fn.resizeSettle = function(settleHandler, optionOverrides) {
+    $.fn.resizeSettle = function(settleHandler, options) {
         "use strict";
         // default configuration values
         var config = {
             timeout: 500
         };
 
-        if (typeof optionOverrides === 'object') {
-            $.extend(config, optionOverrides);
+        if (typeof options === 'object') {
+            $.extend(config, options);
         }
 
         // handle resize of object
         var resizeHandler = function (ev) {
-            if (this.timeOut) {
-                this.timeOut = clearTimeout(this.timeOut);
+            if (this.timeout) {
+                this.timeout = clearTimeout(this.timeout);
             }
 
             this.timeOut = setTimeout(function() {
