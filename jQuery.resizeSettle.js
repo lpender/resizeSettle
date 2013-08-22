@@ -37,7 +37,7 @@
                 this.timeout = clearTimeout(this.timeout);
             }
 
-            this.timeOut = setTimeout(function() {
+            this.timeout = setTimeout(function() {
                 settleHandler.call(this, ev);
             }, config.timeout);
         };
