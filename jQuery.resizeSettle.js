@@ -23,12 +23,12 @@
     $.fn.resizeSettle = function(settleHandler, optionOverrides) {
         "use strict";
         // default configuration values
-        var oCfg = {
+        var config = {
             timeout: 500
         };
 
         if (typeof optionOverrides === 'object') {
-            $.extend(oCfg, optionOverrides);
+            $.extend(config, optionOverrides);
         }
 
         // handle resize of object
@@ -39,7 +39,7 @@
 
             this.timeOut = setTimeout(function() {
                 settleHandler.call(this, ev);
-            }, oCfg.timeout);
+            }, config.timeout);
         };
 
         return this.on({'resize.resizeSettle' : resizeHandler});
