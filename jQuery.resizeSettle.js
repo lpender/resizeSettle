@@ -13,35 +13,28 @@
  * and fires only once.
  *
  * // basic usage ... just like .resize()
- * .resizeSettle( handler )
+ * .resizeSettle( handler, [delay] )
  *
  *
  * @param  handler   function to pass the resize event to
  * @author Lee Pender <lpender(at)gmail(dot)com>
  */
 (function($) {
-    $.fn.resizeSettle = function(settleHandler, options) {
+    $.fn.resizeSettle = function(settleHandler, delay) {
         "use strict";
         // default configuration values
-        var config = {
-            timeout: 500
-        };
-
-        if (typeof options === 'object') {
-            $.extend(config, options);
-        }
+        var _delay = parseInt(delay, 10) || 500,
+            _timeoutId;
 
         // handle resize of object
-        var resizeHandler = function (ev) {
-            if (this.timeout) {
-                this.timeout = clearTimeout(this.timeout);
-            }
+        function resizeHandler(ev) {
+            if (_timeoutId) clearTimeout(_timeoutId);
 
-            this.timeout = setTimeout(function() {
+            _timeoutId = setTimeout(function() {
                 settleHandler.call(this, ev);
-            }, config.timeout);
-        };
+            }, _delay);
+        }
 
-        return this.on({'resize.resizeSettle' : resizeHandler});
+        return this.on({'resize.resizeSettle': resizeHandler});
     };
 })(jQuery);
