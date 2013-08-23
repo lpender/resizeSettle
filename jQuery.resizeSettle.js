@@ -27,13 +27,13 @@
             _timeoutId;
 
         // handle resize of object
-        var resizeHandler = function (ev) {
+        function resizeHandler(ev) {
             if (_timeoutId) clearTimeout(_timeoutId);
 
             _timeoutId = setTimeout(function() {
                 settleHandler.call(this, ev);
             }, _timeout);
-        };
+        }
 
         return this.on({'resize.resizeSettle': resizeHandler});
     };
