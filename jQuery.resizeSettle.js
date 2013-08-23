@@ -24,7 +24,8 @@
         "use strict";
         // default configuration values
         var config = {
-            timeout: 500
+            timeout: 500,
+            timeoutId: null
         };
 
         if (typeof options === 'object') {
@@ -33,15 +34,15 @@
 
         // handle resize of object
         var resizeHandler = function (ev) {
-            if (this.timeout) {
-                this.timeout = clearTimeout(this.timeout);
+            if (config.timeoutId) {
+                clearTimeout(config.timeoutId);
             }
 
-            this.timeout = setTimeout(function() {
+            config.timeoutId = setTimeout(function() {
                 settleHandler.call(this, ev);
             }, config.timeout);
         };
 
-        return this.on({'resize.resizeSettle' : resizeHandler});
+        return this.on({'resize.resizeSettle': resizeHandler});
     };
 })(jQuery);
